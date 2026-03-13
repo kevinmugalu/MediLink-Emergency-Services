@@ -1,12 +1,11 @@
+<!-- src/pages/booking/booking.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Ambulance — MediLink Uganda</title>
-    <!-- Shared styles -->
     <link rel="stylesheet" href="../../../global_css/global.css">
-    <!-- Page-specific styles -->
     <link rel="stylesheet" href="booking.css">
 </head>
 <body>
@@ -25,19 +24,18 @@
     <ul>
         <li><a href="../search/search.html">Find Ambulance</a></li>
         <li><a href="../../../index.html#how">How It Works</a></li>
-        <li><a href="../tracking/tracking.html" class="active">Track</a></li>
+        <li><a href="../tracking/tracking.html">Track</a></li>
         <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
     </ul>
     <div class="nav-cta">
-        <a href="#" class="btn btn-ghost">Sign In</a>
-        <a href="../booking/booking.html" class="btn btn-red">🚑 Request Now</a>
+        <a href="../auth/login.html" class="btn btn-ghost" id="nav-auth-btn">Sign In</a>
+        <a href="../booking/booking.html" class="btn btn-red active">🚑 Request Now</a>
     </div>
 </nav>
 
 <!-- BOOKING SECTION -->
 <section class="booking-section page-offset">
 
-    <!-- Header -->
     <div class="section-header">
         <div class="section-label">Book Now</div>
         <h2 class="section-title">Request an Ambulance</h2>
@@ -46,18 +44,33 @@
         </p>
     </div>
 
-    <!-- Emergency note -->
     <div class="emergency-note">
-        ⚠️ <div>
-            For <strong>life-threatening emergencies</strong>, please call <strong>999</strong> directly 
+        ⚠️
+        <div>
+            For <strong>life-threatening emergencies</strong>, call <strong>999</strong> directly
             while completing this form. MediLink dispatches ambulances within 60 seconds of confirmation.
         </div>
     </div>
 
     <div class="booking-layout">
 
-        <!-- Left: Form-->
+        <!-- ── Left: Form ── -->
         <div>
+
+            <!--
+                INPUT ORDER — booking.js reads by positional index:
+                  inputs()[0]  = Patient Name
+                  inputs()[1]  = Phone Number
+                  inputs()[2]  = Pickup Location
+
+                SELECT ORDER — booking.js reads by positional index:
+                  selects()[0] = Emergency Type
+                  selects()[1] = Hospital       (populated by HospitalsAPI)
+                  selects()[2] = Ambulance      (populated by AmbulancesAPI.available)
+
+                DO NOT reorder these elements without updating booking.js.
+            -->
+
             <div class="form-group">
                 <label class="form-label">Patient Name</label>
                 <input class="form-input" type="text" placeholder="Full name of patient">
@@ -69,6 +82,10 @@
                     <input class="form-input" type="tel" placeholder="+256 700 000 000">
                 </div>
                 <div class="form-group">
+                    <!--
+                        SELECT 0 — Emergency Type
+                        Option text must match keys in EMERGENCY_MAP in booking.js exactly.
+                    -->
                     <label class="form-label">Emergency Type</label>
                     <select class="form-input">
                         <option>Accident / Trauma</option>
@@ -84,44 +101,49 @@
 
             <div class="form-group">
                 <label class="form-label">Pickup Location</label>
-                <input class="form-input" type="text" placeholder="Street / landmark / GPS coordinates">
+                <input class="form-input" type="text"
+                       placeholder="Street / landmark / GPS coordinates">
             </div>
 
             <div class="form-group">
-                <label class="form-label">Preferred Hospital</label>
+                <!--
+                    SELECT 1 — Hospital
+                    Options replaced by booking.js via HospitalsAPI.
+                    Changing emergency type auto-refreshes this list.
+                -->
+                <label class="form-label">Preferred Hospital <span style="color:#6b7280;font-weight:400">(optional)</span></label>
                 <select class="form-input">
-                    <option>Mulago National Referral Hospital</option>
-                    <option>Nakasero Hospital</option>
-                    <option>Case Hospital Kampala</option>
-                    <option>International Hospital Kampala (IHK)</option>
-                    <option>Norvik Hospital</option>
-                    <option>Mengo Hospital</option>
-                    <option>Other (specify in notes)</option>
+                    <option value="">Loading hospitals…</option>
                 </select>
             </div>
 
             <div class="form-group">
+                <!--
+                    SELECT 2 — Ambulance Provider
+                    Options replaced by booking.js via AmbulancesAPI.available().
+                    Changing selection updates the Booking Summary panel.
+                -->
                 <label class="form-label">Ambulance Provider</label>
                 <select class="form-input">
-                    <option>AAR Healthcare — 1.2 km (Recommended)</option>
-                    <option>Mulago Rescue Unit — 2.8 km</option>
-                    <option>Nakasero Med-Response — 4.1 km</option>
-                    <option>UPDF Medical Corps — 5.3 km</option>
-                    <option>Case Hospital Ambulance — 6.0 km</option>
+                    <option value="">Loading ambulances…</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Additional Notes</label>
-                <textarea class="form-input" placeholder="Any special requirements, medical conditions, or additional notes..."></textarea>
+                <textarea class="form-input"
+                          placeholder="Any special requirements, medical conditions, or additional notes…"></textarea>
             </div>
 
+            <!-- Error banner injected here by booking.js -->
+
             <button class="btn btn-red btn-lg btn-submit">
-                🚑 Confirm & Dispatch Ambulance
+                🚑 Confirm &amp; Dispatch Ambulance
             </button>
+
         </div>
 
-        <!-- Right: Summary -->
+        <!-- ── Right: Summary ── -->
         <div>
             <div class="booking-summary">
                 <div class="summary-title">Booking Summary</div>
@@ -129,45 +151,58 @@
                 <div class="summary-provider">
                     <div class="summary-provider-icon">🚑</div>
                     <div>
-                        <div class="summary-provider-name">AAR Healthcare</div>
-                        <div class="summary-provider-type">Advanced Life Support (ALS) · Kampala</div>
+                        <!--
+                            .summary-provider-name and .summary-provider-type
+                            are updated by booking.js when the ambulance select changes.
+                        -->
+                        <div class="summary-provider-name">—</div>
+                        <div class="summary-provider-type">Select an ambulance provider</div>
                     </div>
                 </div>
 
+                <!--
+                    .summary-val positional index used by booking.js:
+                      [0] = Distance     (static, no backend source)
+                      [1] = Est. Arrival (static, no backend source)
+                      [2] = Destination  → updated from hospitalSel
+                      [3] = Emergency    → updated from emergencySel
+                      [4] = Base Fare    → updated from ambulance.base_fare
+                -->
                 <div class="summary-item">
                     <span class="summary-key">Distance</span>
-                    <span class="summary-val">1.2 km away</span>
+                    <span class="summary-val">Calculating…</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-key">Est. Arrival</span>
-                    <span class="summary-val summary-eta">~4 minutes</span>
+                    <span class="summary-val summary-eta">~4–12 minutes</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-key">Destination</span>
-                    <span class="summary-val">Mulago Hospital</span>
+                    <span class="summary-val">—</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-key">Emergency Type</span>
-                    <span class="summary-val">Accident / Trauma</span>
+                    <span class="summary-val">—</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-key">Base Fare</span>
-                    <span class="summary-val">UGX 150,000</span>
+                    <span class="summary-val">—</span>
                 </div>
-                <div class="summary-item">
+                <!-- <div class="summary-item">
                     <span class="summary-key">Platform Fee</span>
                     <span class="summary-val">UGX 5,000</span>
-                </div>
+                </div> -->
 
                 <div class="total-row">
                     <span class="total-label">Total Estimated</span>
-                    <span class="total-val">UGX 155,000</span>
+                    <span class="total-val">—</span>
                 </div>
             </div>
 
             <div class="payment-note">
                 <div class="payment-note-title">✅ Flexible Payment Options</div>
-                <p>Pay by Mobile Money (MTN / Airtel Money), Cash on arrival, or Insurance. Final fare may vary based on actual distance travelled.</p>
+                <p>Pay by Mobile Money (MTN / Airtel Money), Cash on arrival, or Insurance.
+                   Final fare may vary based on actual distance travelled.</p>
             </div>
         </div>
 
@@ -182,16 +217,17 @@
                 <div class="brand-icon">🚑</div>
                 Medi<span>Link</span>
             </a>
-            <p>Connecting Uganda to emergency medical transportation through technology. Saving lives, one dispatch at a time.</p>
+            <p>Connecting Uganda to emergency medical transportation. Saving lives, one dispatch at a time.</p>
             <div class="btn-row">
-                <a href="booking.html" class="btn btn-red" style="font-size:13px;padding:8px 18px;">Get Help Now</a>
+                <a href="../booking/booking.html" class="btn btn-red"
+                   style="font-size:13px;padding:8px 18px;">Get Help Now</a>
             </div>
         </div>
         <div class="footer-col">
             <h5>Services</h5>
             <ul>
                 <li><a href="../search/search.html">Find Ambulance</a></li>
-                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="../booking/booking.html">Book Now</a></li>
                 <li><a href="../tracking/tracking.html">Track Booking</a></li>
                 <li><a href="#">Hospital Directory</a></li>
             </ul>
@@ -199,7 +235,7 @@
         <div class="footer-col">
             <h5>Providers</h5>
             <ul>
-                <li><a href="#">Join MediLink</a></li>
+                <li><a href="../auth/register.html">Join MediLink</a></li>
                 <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
                 <li><a href="#">Fleet Management</a></li>
                 <li><a href="#">Pricing Info</a></li>
@@ -221,7 +257,20 @@
     </div>
 </footer>
 
+<!--
+    SCRIPT ORDER MATTERS:
+    1. medilink-api.js — defines window.MediLink (Auth, HospitalsAPI, AmbulancesAPI, BookingsAPI)
+    2. booking.js      — consumes window.MediLink
+-->
+<script src="../../../src/api/api.js"></script>
 <script src="booking.js"></script>
+<script>
+    const authBtn = document.getElementById('nav-auth-btn');
+    if (window.MediLink?.Auth?.isLoggedIn()) {
+        authBtn.textContent = 'My Account';
+        authBtn.href        = '../accounts/account.html';
+    }
+</script>
 
 </body>
 </html>

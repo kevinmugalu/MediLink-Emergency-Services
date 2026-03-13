@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In — MediLink Uganda</title>
+    <link rel="stylesheet" href="../../../global_css/global.css">
+    <link rel="stylesheet" href="login.css">
+    
+</head>
+
+<body>
+
+    <!-- ── Left Panel ───────────────────────────────────────── -->
+    <div class="panel-left">
+        <div class="vert-tag">Emergency Platform</div>
+
+        <!-- Brand -->
+        <div class="left-top">
+            <a href="../../index.html" class="brand">
+                <div class="brand-icon">🚑</div>
+                Medi<span>Link</span>
+            </a>
+        </div>
+
+        <!-- Headline -->
+        <div class="left-mid">
+            <h1 class="left-headline">
+                Every<br>Second<br><em>Matters.</em>
+            </h1>
+            <p class="left-sub">
+                Sign in to request, track, and manage emergency ambulance services across Uganda in real time.
+            </p>
+
+            <div class="left-stats">
+                <div class="lstat">
+                    <div class="lstat-num">120<span style="font-size:18px;color:var(--red)">+</span></div>
+                    <div class="lstat-label">Verified Providers</div>
+                </div>
+                <div class="lstat">
+                    <div class="lstat-num">8<span style="font-size:18px;color:var(--red)">min</span></div>
+                    <div class="lstat-label">Avg. Response</div>
+                </div>
+                <div class="lstat">
+                    <div class="lstat-num">24<span style="font-size:18px;color:var(--red)">/7</span></div>
+                    <div class="lstat-label">Always On</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trust strip -->
+        <div class="left-bot">
+            <div class="trust-strip">
+                <div class="trust-icon">🛡️</div>
+                <div class="trust-text">
+                    <strong>Verified & Secure</strong><br>
+                    All providers are background-checked and licensed by the Ministry of Health Uganda.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Right Panel ──────────────────────────────────────── -->
+    <div class="panel-right">
+        <div class="form-shell">
+
+            <div class="form-eyebrow">Welcome back</div>
+            <h2 class="form-title">Sign In</h2>
+            <p class="form-sub">
+                No account? <a href="register.html">Create one free →</a>
+            </p>
+
+            <!-- Error banner -->
+            <div class="login-error" id="login-error" role="alert"></div>
+
+            <!-- Email -->
+            <div class="field-group">
+                <label class="field-label" for="email">Email address</label>
+                <div class="field-wrap">
+                    <span class="field-icon">✉️</span>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        class="field-input"
+                        placeholder="Enter your email address"
+                        autocomplete="email"
+                        inputmode="email"
+                    >
+                </div>
+                <div class="field-hint" id="email-hint"></div>
+            </div>
+
+            <!-- Password -->
+            <div class="field-group">
+                <div class="field-meta">
+                    <label class="field-label" for="password" style="margin-bottom:0">Password</label>
+                    <a href="password-reset.html">Forgot password?</a>
+                </div>
+                <div class="field-wrap">
+                    <span class="field-icon">🔒</span>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        class="field-input"
+                        placeholder="••••••••"
+                        autocomplete="current-password"
+                    >
+                    <button class="pw-toggle" id="pw-toggle" type="button" aria-label="Toggle password visibility" tabindex="-1">
+                        👁️
+                    </button>
+                </div>
+                <div class="field-hint" id="password-hint"></div>
+            </div>
+
+            <!-- Submit -->
+            <button class="btn-login" id="btn-login" type="button">
+                <div class="spinner"></div>
+                <span class="btn-label">Sign In →</span>
+            </button>
+
+            <!-- Divider -->
+            <div class="divider"><span>or continue without signing in</span></div>
+
+            <!-- Emergency shortcut -->
+            <a href="../booking/booking.html" class="emergency-shortcut">
+                <div class="es-icon">🚑</div>
+                <div class="es-text">
+                    <div class="es-title">Emergency? Book without account</div>
+                    <div class="es-sub">For urgent situations — no sign-in required</div>
+                </div>
+                <div class="es-arrow">›</div>
+            </a>
+
+            <!-- Register row -->
+            <div class="register-row">
+                New to MediLink?
+                <a href="../../auth/register.html">Create a free account</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../api/api.js"></script>
+    <script src="login.js"></script>
+
+</body>
+</html>

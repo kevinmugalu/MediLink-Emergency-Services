@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account — MediLink Uganda</title>
+    <link rel="stylesheet" href="../../../global_css/global.css">
+    <link rel="stylesheet" href="account.css">
+</head>
+
+<body>
+
+    <!-- Redirect overlay shown while auth check runs -->
+    <div class="auth-guard" id="auth-guard">
+        <div class="guard-spinner"></div>
+    </div>
+
+    <!-- ── Top bar ───────────────────────────────────────────── -->
+    <nav>
+        <a href="../../../index.html" class="brand">
+            <div class="brand-icon">🚑</div>
+            Medi<span>Link</span>
+        </a>
+        <ul>
+            <li><a href="../search/search.html">Find Ambulance</a></li>
+            <li><a href="../../../index.html#how">How It Works</a></li>
+            <li><a href="../tracking/tracking.html">Track</a></li>
+            <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
+        </ul>
+        <div class="nav-cta">
+            <a href="../auth/login.html" class="btn btn-ghost" id="nav-auth-btn">Sign In</a>
+            <a href="../booking/booking.html" class="btn btn-red active">🚑 Request Now</a>
+        </div>
+    </nav>
+    <!-- ── Page shell ────────────────────────────────────────── -->
+    <div class="account-shell">
+
+        <!-- ── Sidebar ───────────────────────────────────────── -->
+        <aside class="sidebar">
+
+            <!-- Avatar block -->
+            <div class="avatar-block">
+                <div class="avatar" id="sidebar-avatar">?</div>
+                <div class="avatar-info">
+                    <div class="avatar-name" id="sidebar-name">Loading…</div>
+                    <div class="avatar-role" id="sidebar-role">—</div>
+                </div>
+            </div>
+
+            <!-- Nav links -->
+            <nav class="side-nav">
+                <button class="side-link active" data-tab="overview">
+                    <span class="side-icon">👤</span> Overview
+                </button>
+                <button class="side-link" data-tab="bookings">
+                    <span class="side-icon">🚑</span> My Bookings
+                    <span class="side-badge" id="bookings-badge" style="display:none"></span>
+                </button>
+                <button class="side-link" data-tab="profile">
+                    <span class="side-icon">✏️</span> Edit Profile
+                </button>
+                <button class="side-link" data-tab="security">
+                    <span class="side-icon">🔒</span> Security
+                </button>
+            </nav>
+
+            <!-- Logout -->
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="btn-logout">
+                    <span>⏻</span> Sign Out
+                </button>
+                <div class="sidebar-version">MediLink Uganda · 2026</div>
+            </div>
+        </aside>
+
+        <!-- ── Main content ───────────────────────────────────── -->
+        <main class="account-main">
+
+            <!-- ── TAB: Overview ─────────────────────────────── -->
+            <section class="tab-panel active" id="tab-overview">
+
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-eyebrow">Account</div>
+                        <h1 class="panel-title" id="overview-greeting">Welcome back</h1>
+                    </div>
+                    <div class="header-meta" id="overview-since">Member since —</div>
+                </div>
+
+                <!-- Identity card -->
+                <div class="identity-card">
+                    <div class="id-avatar" id="id-avatar">?</div>
+                    <div class="id-details">
+                        <div class="id-name" id="id-name">—</div>
+                        <div class="id-email" id="id-email">—</div>
+                        <div class="id-tags">
+                            <span class="tag" id="id-role-tag">—</span>
+                            <span class="tag id-status" id="id-status-tag">—</span>
+                        </div>
+                    </div>
+                    <div class="id-uid">
+                        <div class="uid-label">Account ID</div>
+                        <div class="uid-val" id="id-uid">—</div>
+                    </div>
+                </div>
+
+                <!-- Stats row -->
+                <div class="stats-row" id="overview-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">🚑</div>
+                        <div class="stat-val" id="stat-bookings">—</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-val" id="stat-completed">—</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-val" id="stat-active">—</div>
+                        <div class="stat-label">Active Now</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏥</div>
+                        <div class="stat-val" id="stat-hospitals">—</div>
+                        <div class="stat-label">Hospitals Used</div>
+                    </div>
+                </div>
+
+                <!-- Recent bookings preview -->
+                <div class="section-block">
+                    <div class="block-header">
+                        <h3 class="block-title">Recent Activity</h3>
+                        <button class="block-link" data-tab="bookings">View all →</button>
+                    </div>
+                    <div class="booking-list" id="recent-bookings">
+                        <div class="empty-state">
+                            <div class="empty-icon">🚑</div>
+                            <div>No bookings yet</div>
+                            <a href="../booking/booking.html" class="btn btn-red" style="margin-top:12px;font-size:13px;">Book your first ambulance</a>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ── TAB: Bookings ─────────────────────────────── -->
+            <section class="tab-panel" id="tab-bookings">
+
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-eyebrow">History</div>
+                        <h1 class="panel-title">My Bookings</h1>
+                    </div>
+                    <a href="../booking/booking.html" class="btn btn-red" style="font-size:13px;padding:9px 18px;">+ New Booking</a>
+                </div>
+
+                <!-- Filter chips -->
+                <div class="filter-row">
+                    <button class="filter-chip active" data-filter="all">All</button>
+                    <button class="filter-chip" data-filter="pending">Pending</button>
+                    <button class="filter-chip" data-filter="dispatched">Dispatched</button>
+                    <button class="filter-chip" data-filter="completed">Completed</button>
+                    <button class="filter-chip" data-filter="cancelled">Cancelled</button>
+                </div>
+
+                <div class="booking-list full" id="all-bookings">
+                    <div class="list-loader">
+                        <div class="guard-spinner" style="width:28px;height:28px;border-width:3px"></div>
+                        Loading bookings…
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ── TAB: Edit Profile ─────────────────────────── -->
+            <section class="tab-panel" id="tab-profile">
+
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-eyebrow">Settings</div>
+                        <h1 class="panel-title">Edit Profile</h1>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <div class="form-card-title">Basic Information</div>
+
+                    <div class="success-banner" id="profile-success" style="display:none">
+                        ✅ Profile updated successfully.
+                    </div>
+                    <div class="error-banner" id="profile-error" style="display:none"></div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label">First name</label>
+                            <input id="pf-first" type="text" class="field-input" placeholder="John">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Last name</label>
+                            <input id="pf-last" type="text" class="field-input" placeholder="Doe">
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Email address</label>
+                        <input id="pf-email" type="email" class="field-input" disabled
+                               style="opacity:.45;cursor:not-allowed">
+                        <div class="field-note">Email address cannot be changed.</div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Phone number</label>
+                        <input id="pf-phone" type="tel" class="field-input" placeholder="+256 700 123 456">
+                    </div>
+
+                    <!-- Client-only fields -->
+                    <div id="client-fields" style="display:none">
+                        <div class="field-group">
+                            <label class="field-label">WhatsApp number</label>
+                            <input id="pf-whatsapp" type="tel" class="field-input" placeholder="+256 700 123 456">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Date of birth</label>
+                            <input id="pf-dob" type="date" class="field-input">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Additional medical notes</label>
+                            <textarea id="pf-notes" class="field-input" rows="3"
+                                      placeholder="e.g. blood type, allergies, existing conditions…"
+                                      style="resize:vertical"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Provider-only fields -->
+                    <div id="provider-fields" style="display:none">
+                        <div class="form-card-title" style="margin-top:24px">Organisation</div>
+                        <div class="field-group">
+                            <label class="field-label">Company name</label>
+                            <input id="pf-company" type="text" class="field-input">
+                        </div>
+                        <div class="field-row">
+                            <div class="field-group">
+                                <label class="field-label">Office phone</label>
+                                <input id="pf-office-phone" type="tel" class="field-input">
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">WhatsApp</label>
+                                <input id="pf-prov-whatsapp" type="tel" class="field-input">
+                            </div>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Office address</label>
+                            <textarea id="pf-office-addr" class="field-input" rows="2" style="resize:vertical"></textarea>
+                        </div>
+                    </div>
+
+                    <button class="save-btn" id="btn-save-profile">
+                        <div class="btn-spinner" id="profile-spinner" style="display:none"></div>
+                        <span id="save-label">Save Changes</span>
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- ── TAB: Security ─────────────────────────────── -->
+            <section class="tab-panel" id="tab-security">
+
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-eyebrow">Security</div>
+                        <h1 class="panel-title">Password & Access</h1>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <div class="form-card-title">Change Password</div>
+
+                    <div class="success-banner" id="pw-success" style="display:none">
+                        ✅ Password changed successfully.
+                    </div>
+                    <div class="error-banner" id="pw-error" style="display:none"></div>
+
+                    <div class="field-group">
+                        <label class="field-label">Current password</label>
+                        <div class="field-wrap">
+                            <input id="pw-current" type="password" class="field-input" placeholder="••••••••">
+                            <button class="pw-eye" data-target="pw-current" type="button">👁️</button>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">New password</label>
+                        <div class="field-wrap">
+                            <input id="pw-new" type="password" class="field-input" placeholder="Min. 8 characters">
+                            <button class="pw-eye" data-target="pw-new" type="button">👁️</button>
+                        </div>
+                        <div class="pw-strength-wrap" id="pw-strength-wrap" style="display:none">
+                            <div class="pw-strength-bar"><div class="pw-strength-fill" id="pw-fill"></div></div>
+                            <div class="pw-strength-label" id="pw-label"></div>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Confirm new password</label>
+                        <div class="field-wrap">
+                            <input id="pw-confirm" type="password" class="field-input" placeholder="••••••••">
+                            <button class="pw-eye" data-target="pw-confirm" type="button">👁️</button>
+                        </div>
+                    </div>
+
+                    <button class="save-btn" id="btn-change-pw">
+                        <div class="btn-spinner" id="pw-spinner" style="display:none"></div>
+                        <span id="pw-btn-label">Update Password</span>
+                    </button>
+                </div>
+
+                <!-- Danger zone -->
+                <div class="danger-zone">
+                    <div class="danger-title">⚠️ Danger Zone</div>
+                    <div class="danger-row">
+                        <div>
+                            <div class="danger-label">Sign out of all devices</div>
+                            <div class="danger-desc">Invalidates all active sessions immediately.</div>
+                        </div>
+                        <button class="btn-danger" id="btn-logout-all">Sign Out Everywhere</button>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../../api/api.js"></script>
+    <script src="account.js"></script>
+
+    <script>
+        const authBtn = document.getElementById('nav-auth-btn');
+        if (window.MediLink?.Auth?.isLoggedIn()) {
+            authBtn.textContent = 'My Account';
+            authBtn.href        = '../accounts/account.html';   
+        }
+    </script>
+
+</body>
+</html>

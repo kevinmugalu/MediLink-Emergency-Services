@@ -1,9 +1,9 @@
-/* ═══════════════════════════════════════════════════════
+/* 
    MediLink — booking.css
    Page-specific styles for: Booking Form (booking.html)
-   ═══════════════════════════════════════════════════════ */
+ */
 
-/* ── Page Background ───────────────────────────────────── */
+/* Page Background */
 .booking-section {
     background: var(--dark-card);
     border-top: 1px solid var(--border);

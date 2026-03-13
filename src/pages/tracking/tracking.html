@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Ambulance — MediLink Uganda</title>
-    <!-- Shared styles -->
     <link rel="stylesheet" href="../../../global_css/global.css">
-    <!-- Page-specific styles -->
     <link rel="stylesheet" href="tracking.css">
+    <style>
+        @keyframes shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Emergency Alert Bar -->
+<!-- Emergency Alert Bar — driver phone populated by tracking.js -->
 <div class="emergency-bar">
-    🚑 Your ambulance is on its way! Call driver: <strong>+256 772 123 456</strong>
+    🚑 Your ambulance is on its way! Emergency line: <strong>999</strong>
 </div>
 
 <!-- Navigation -->
@@ -29,7 +33,8 @@
         <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
     </ul>
     <div class="nav-cta">
-        <a href="#" class="btn btn-ghost">Sign In</a>
+        <!-- href + label updated by inline script below after MediLink loads -->
+        <a href="../auth/login.html" class="btn btn-ghost" id="nav-auth-btn">Sign In</a>
         <a href="../booking/booking.html" class="btn btn-red">🚑 Request Now</a>
     </div>
 </nav>
@@ -37,24 +42,31 @@
 <!-- TRACKING SECTION -->
 <section class="tracking-section page-offset">
 
-    <!-- Header -->
     <div class="section-header">
         <div class="section-label">Live Tracking</div>
         <h2 class="section-title">Track Your Ambulance</h2>
-        <p class="section-sub">
-            Real-time location updates so you know exactly when help will arrive.
-        </p>
+        <p class="section-sub">Real-time location updates so you know exactly when help will arrive.</p>
+    </div>
+
+    <!-- Shown by tracking.js when no booking id/ref in URL -->
+    <div class="lookup-form" style="display:none;max-width:440px;margin:0 auto 32px;padding:0 16px">
+        <label class="form-label" style="display:block;margin-bottom:8px">Enter your booking reference</label>
+        <div style="display:flex;gap:8px">
+            <input id="ref-input" class="form-input" type="text"
+                   placeholder="e.g. ML-0047" style="flex:1">
+            <button id="ref-lookup-btn" class="btn btn-red">Track</button>
+        </div>
     </div>
 
     <div class="tracking-layout">
 
-        <!-- Left: Info Panel -->
+        <!-- ── Left: Info Panel ── -->
         <div>
             <div class="tracking-card">
 
-                <!-- Booking ID -->
-                <div class="tracking-id">Booking #ML-20240312-0047</div>
-                <div class="tracking-name">AAR Healthcare — ALS Ambulance</div>
+                <!-- Populated by tracking.js -->
+                <div class="tracking-id">Booking #— · —</div>
+                <div class="tracking-name">Awaiting ambulance assignment…</div>
 
                 <!-- Progress Steps -->
                 <div class="progress-track">
@@ -62,26 +74,27 @@
                     <div class="progress-fill"></div>
 
                     <div class="progress-step">
-                        <div class="p-dot done">✓</div>
+                        <div class="p-dot pending">1</div>
                         <div class="p-info">
                             <h5>Booking Confirmed</h5>
-                            <span>10:42 AM · Driver assigned</span>
+                            <span>Driver being assigned</span>
                         </div>
                     </div>
 
                     <div class="progress-step">
-                        <div class="p-dot done">✓</div>
+                        <div class="p-dot pending">2</div>
                         <div class="p-info">
                             <h5>Ambulance Dispatched</h5>
-                            <span>10:43 AM · En route to you</span>
+                            <span>En route to you</span>
                         </div>
                     </div>
 
                     <div class="progress-step">
-                        <div class="p-dot active">🚑</div>
+                        <div class="p-dot pending">3</div>
                         <div class="p-info">
                             <h5>On The Way</h5>
-                            <span>Estimated arrival in <strong style="color:var(--green);">4 minutes</strong></span>
+                            <!-- ETA injected here indirectly via eta-overlay -->
+                            <span>Calculating…</span>
                         </div>
                     </div>
 
@@ -89,7 +102,7 @@
                         <div class="p-dot pending">4</div>
                         <div class="p-info">
                             <h5>Arrived at Pickup</h5>
-                            <span>Waiting...</span>
+                            <span>Waiting for patient</span>
                         </div>
                     </div>
 
@@ -97,22 +110,24 @@
                         <div class="p-dot pending">5</div>
                         <div class="p-info">
                             <h5>Transporting to Hospital</h5>
-                            <span>Mulago National Referral</span>
+                            <!-- Populated by tracking.js from booking.hospital.name -->
+                            <span>Hospital TBD</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Driver Info -->
+                <!-- Driver Info — all fields populated by tracking.js -->
                 <div class="driver-card">
-                    <div class="driver-avatar">JK</div>
+                    <div class="driver-avatar">—</div>
                     <div class="driver-info">
-                        <div class="driver-name">James Kato — Paramedic</div>
-                        <div class="driver-plate">UBD 234K · Toyota HiAce ALS</div>
+                        <div class="driver-name">Awaiting driver assignment</div>
+                        <div class="driver-plate">Plate not yet assigned</div>
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
                 <div class="driver-actions">
+                    <!-- onclick wired by tracking.js to real driver phone -->
                     <button class="icon-btn call">📞 Call Driver</button>
                     <button class="icon-btn">💬 Message</button>
                     <button class="icon-btn">❌ Cancel</button>
@@ -121,43 +136,37 @@
             </div><!-- /tracking-card -->
         </div>
 
-        <!-- Right: Map -->
+        <!-- ── Right: Map ── -->
         <div>
             <div class="big-map">
-                <!-- Road grid -->
                 <div class="map-road2 mh1"></div>
                 <div class="map-road2 mh2"></div>
                 <div class="map-road2 mv1"></div>
                 <div class="map-road2 mv2"></div>
 
-                <!-- Ambulance (animated) -->
                 <div class="big-ambulance">🚑</div>
 
-                <!-- Destination marker -->
                 <div class="dest-marker">
                     <div class="dest-icon"><span>🏥</span></div>
                 </div>
 
-                <!-- Route line -->
                 <div class="route-line"></div>
 
-                <!-- User location dot -->
                 <div class="user-location">
                     <div class="user-location-dot"></div>
                 </div>
 
-                <!-- ETA overlay -->
+                <!-- ETA: .eta-time updated by tracking.js -->
                 <div class="eta-overlay">
                     <div class="eta-label">Estimated Arrival</div>
-                    <div class="eta-time">4 min</div>
+                    <div class="eta-time">—</div>
                 </div>
 
-                <!-- Hospital overlay -->
+                <!-- Hospital: .h-name updated by tracking.js from booking.hospital.name -->
                 <div class="hospital-overlay">
                     <div class="h-label">Destination</div>
-                    <div class="h-name">🏥 Mulago Hospital</div>
+                    <div class="h-name">🏥 —</div>
                 </div>
-
             </div><!-- /big-map -->
         </div>
 
@@ -172,9 +181,10 @@
                 <div class="brand-icon">🚑</div>
                 Medi<span>Link</span>
             </a>
-            <p>Connecting Uganda to emergency medical transportation through technology. Saving lives, one dispatch at a time.</p>
+            <p>Connecting Uganda to emergency medical transportation. Saving lives, one dispatch at a time.</p>
             <div class="btn-row">
-                <a href="../booking/booking.html" class="btn btn-red" style="font-size:13px;padding:8px 18px;">Get Help Now</a>
+                <a href="../booking/booking.html" class="btn btn-red"
+                   style="font-size:13px;padding:8px 18px;">Get Help Now</a>
             </div>
         </div>
         <div class="footer-col">
@@ -189,7 +199,7 @@
         <div class="footer-col">
             <h5>Providers</h5>
             <ul>
-                <li><a href="#">Join MediLink</a></li>
+                <li><a href="../auth/register.html">Join MediLink</a></li>
                 <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
                 <li><a href="#">Fleet Management</a></li>
                 <li><a href="#">Pricing Info</a></li>
@@ -211,7 +221,21 @@
     </div>
 </footer>
 
-<script src="../tracking/tracking.js"></script>
+<!--
+    SCRIPT ORDER MATTERS:
+    1. medilink-api.js  — defines window.MediLink (Auth, BookingsAPI, etc.)
+    2. tracking.js      — consumes window.MediLink
+-->
+<script src="../../../src/api/api.js"></script>
+<script src="tracking.js"></script>
+<script>
+    // Nav: swap "Sign In" → "My Account" when already logged in
+    const authBtn = document.getElementById('nav-auth-btn');
+    if (window.MediLink?.Auth?.isLoggedIn()) {
+        authBtn.textContent = 'My Account';
+        authBtn.href        = '../accounts/account.html';
+    }
+</script>
 
 </body>
 </html>

@@ -1,20 +1,25 @@
+<!-- src/pages/search/search.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Ambulance — MediLink Uganda</title>
-    <!-- Shared styles -->
     <link rel="stylesheet" href="../../../global_css/global.css">
-    <!-- Page-specific styles -->
     <link rel="stylesheet" href="search.css">
+    <style>
+        @keyframes shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
 </head>
 <body>
 
 <!-- Emergency Alert Bar -->
 <div class="emergency-bar">
     🚨 Emergency? Call <strong>999</strong> or
-    <a href="booking.html">Request an Ambulance Now →</a>
+    <a href="../booking/booking.html">Request an Ambulance Now →</a>
 </div>
 
 <!-- Navigation -->
@@ -24,13 +29,13 @@
         Medi<span>Link</span>
     </a>
     <ul>
-        <li><a href="../search/search.html">Find Ambulance</a></li>
+        <li><a href="../search/search.html" class="active">Find Ambulance</a></li>
         <li><a href="../../../index.html#how">How It Works</a></li>
-        <li><a href="../tracking/tracking.html" class="active">Track</a></li>
+        <li><a href="../tracking/tracking.html">Track</a></li>
         <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
     </ul>
     <div class="nav-cta">
-        <a href="#" class="btn btn-ghost">Sign In</a>
+        <a href="../auth/login.html" class="btn btn-ghost" id="nav-auth-btn">Sign In</a>
         <a href="../booking/booking.html" class="btn btn-red">🚑 Request Now</a>
     </div>
 </nav>
@@ -39,7 +44,6 @@
 <section class="search-section page-offset">
     <div class="search-container">
 
-        <!-- Header -->
         <div class="section-header text-center">
             <div class="section-label">Find Help</div>
             <h2 class="section-title">Browse Ambulance Providers</h2>
@@ -51,11 +55,12 @@
         <!-- Search Box -->
         <div class="search-box">
             <span>📍</span>
-            <input type="text" placeholder="Enter your location — e.g. Kampala, Entebbe, Gulu...">
+            <input type="text" placeholder="Enter your location — e.g. Kampala, Entebbe, Gulu…">
             <button class="btn btn-red">Search</button>
         </div>
 
-        <!-- Filter Chips -->
+        <!-- Filter Chips
+             Labels must match CHIP_TYPE_MAP keys in search.js exactly -->
         <div class="filter-row">
             <button class="filter-chip active">All Types</button>
             <button class="filter-chip">Basic Life Support (BLS)</button>
@@ -65,17 +70,18 @@
             <button class="filter-chip">Available Now</button>
         </div>
 
-        <!-- Results Meta -->
+        <!-- Results Meta — replaced by search.js -->
         <div class="results-meta">
-            <span>Showing <strong>6</strong> providers near <strong>Kampala</strong></span>
-            <span>Sorted by: Distance</span>
+            <span>Loading providers…</span>
         </div>
 
-        <!-- Provider Cards -->
+        <!-- Provider Cards
+             Static fallback cards below are replaced by search.js on load.
+             data-id="" means they won't deep-link until real data arrives.
+             search.js also re-attaches click handlers to static cards on API error. -->
         <div class="results-grid">
 
-            <!-- Card 1 -->
-            <div class="provider-card">
+            <div class="provider-card" data-id="">
                 <div class="card-top">
                     <div class="provider-icon">🚑</div>
                     <div class="availability available">
@@ -94,14 +100,11 @@
                         <div class="price">UGX 150k</div>
                         <div class="price-label">Base fare</div>
                     </div>
-                    <div class="rating">
-                        <span class="stars">★★★★★</span> 4.9
-                    </div>
+                    <div class="rating"><span class="stars">★★★★★</span> 4.9</div>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div class="provider-card">
+            <div class="provider-card" data-id="">
                 <div class="card-top">
                     <div class="provider-icon">🏥</div>
                     <div class="availability available">
@@ -119,14 +122,11 @@
                         <div class="price">UGX 80k</div>
                         <div class="price-label">Base fare</div>
                     </div>
-                    <div class="rating">
-                        <span class="stars">★★★★☆</span> 4.5
-                    </div>
+                    <div class="rating"><span class="stars">★★★★☆</span> 4.5</div>
                 </div>
             </div>
 
-            <!-- Card 3 -->
-            <div class="provider-card">
+            <div class="provider-card" data-id="">
                 <div class="card-top">
                     <div class="provider-icon">🩺</div>
                     <div class="availability busy">
@@ -145,14 +145,11 @@
                         <div class="price">UGX 200k</div>
                         <div class="price-label">Base fare</div>
                     </div>
-                    <div class="rating">
-                        <span class="stars">★★★★★</span> 4.8
-                    </div>
+                    <div class="rating"><span class="stars">★★★★★</span> 4.8</div>
                 </div>
             </div>
 
-            <!-- Card 4 -->
-            <div class="provider-card">
+            <div class="provider-card" data-id="">
                 <div class="card-top">
                     <div class="provider-icon">🚒</div>
                     <div class="availability available">
@@ -171,14 +168,11 @@
                         <div class="price">UGX 120k</div>
                         <div class="price-label">Base fare</div>
                     </div>
-                    <div class="rating">
-                        <span class="stars">★★★★☆</span> 4.6
-                    </div>
+                    <div class="rating"><span class="stars">★★★★☆</span> 4.6</div>
                 </div>
             </div>
 
-            <!-- Card 5 -->
-            <div class="provider-card">
+            <div class="provider-card" data-id="">
                 <div class="card-top">
                     <div class="provider-icon">🏨</div>
                     <div class="availability available">
@@ -196,14 +190,11 @@
                         <div class="price">UGX 100k</div>
                         <div class="price-label">Base fare</div>
                     </div>
-                    <div class="rating">
-                        <span class="stars">★★★☆☆</span> 4.1
-                    </div>
+                    <div class="rating"><span class="stars">★★★☆☆</span> 4.1</div>
                 </div>
             </div>
 
-            <!-- Card 6 -->
-            <div class="provider-card">
+            <div class="provider-card" data-id="">
                 <div class="card-top">
                     <div class="provider-icon">💊</div>
                     <div class="availability available">
@@ -221,9 +212,7 @@
                         <div class="price">UGX 180k</div>
                         <div class="price-label">Base fare</div>
                     </div>
-                    <div class="rating">
-                        <span class="stars">★★★★★</span> 4.7
-                    </div>
+                    <div class="rating"><span class="stars">★★★★★</span> 4.7</div>
                 </div>
             </div>
 
@@ -231,7 +220,7 @@
     </div><!-- /search-container -->
 </section>
 
-<!--  FOOTER-->
+<!-- FOOTER -->
 <footer>
     <div class="footer-grid">
         <div class="footer-brand">
@@ -239,9 +228,10 @@
                 <div class="brand-icon">🚑</div>
                 Medi<span>Link</span>
             </a>
-            <p>Connecting Uganda to emergency medical transportation through technology. Saving lives, one dispatch at a time.</p>
+            <p>Connecting Uganda to emergency medical transportation. Saving lives, one dispatch at a time.</p>
             <div class="btn-row">
-                <a href="../booking/booking.html" class="btn btn-red" style="font-size:13px;padding:8px 18px;">Get Help Now</a>
+                <a href="../booking/booking.html" class="btn btn-red"
+                   style="font-size:13px;padding:8px 18px;">Get Help Now</a>
             </div>
         </div>
         <div class="footer-col">
@@ -256,7 +246,7 @@
         <div class="footer-col">
             <h5>Providers</h5>
             <ul>
-                <li><a href="#">Join MediLink</a></li>
+                <li><a href="../auth/register.html">Join MediLink</a></li>
                 <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
                 <li><a href="#">Fleet Management</a></li>
                 <li><a href="#">Pricing Info</a></li>
@@ -278,7 +268,20 @@
     </div>
 </footer>
 
+<!--
+    SCRIPT ORDER MATTERS:
+    1. medilink-api.js — defines window.MediLink
+    2. search.js       — consumes window.MediLink.AmbulancesAPI
+-->
+<script src="../../../src/api/api.js"></script>
 <script src="search.js"></script>
+<script>
+    const authBtn = document.getElementById('nav-auth-btn');
+    if (window.MediLink?.Auth?.isLoggedIn()) {
+        authBtn.textContent = 'My Account';
+        authBtn.href        = '../accounts/account.html';   
+    }
+</script>
 
 </body>
 </html>

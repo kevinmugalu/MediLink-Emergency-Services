@@ -1,3 +1,4 @@
+<!-- src/pages/dashboard/dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -272,6 +273,15 @@
 </footer>
 
 <script src="dashboard.js"></script>
+<script src="../../../src/api/api.js"></script>
+
+<script>
+    const authBtn = document.getElementById('nav-auth-btn');
+    if (window.MediLink?.Auth?.isLoggedIn()) {
+        authBtn.textContent = 'My Account';
+        authBtn.href        = '../accounts/account.html';   
+    }
+</script>
 
 </body>
 </html>

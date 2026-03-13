@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account — MediLink Uganda</title>
+    <link rel="stylesheet" href="../../../global_css/global.css">
+    <link rel="stylesheet" href="register.css">
+</head>
+
+<body>
+
+    <!-- ── Left Panel ───────────────────────────────────────── -->
+    <div class="panel-left">
+
+        <div class="left-top">
+            <a href="../../../index.html" class="brand">
+                <div class="brand-icon">🚑</div>
+                Medi<span>Link</span>
+            </a>
+        </div>
+
+        <div class="left-mid">
+            <h1 class="left-headline">
+                Join the<br><em>Network</em><br>Saving Lives.
+            </h1>
+            <p class="left-sub">
+                Whether you need emergency care, drive an ambulance, or run a provider fleet — MediLink connects you to Uganda's emergency response grid.
+            </p>
+
+            <div class="role-previews" id="left-role-previews">
+                <div class="role-preview highlight" data-for="client">
+                    <div class="rp-icon">🧑‍⚕️</div>
+                    <div>
+                        <div class="rp-name">Patient / Client</div>
+                        <div class="rp-desc">Request ambulances, track in real time, choose your hospital</div>
+                    </div>
+                    <div class="rp-badge">You</div>
+                </div>
+                <div class="role-preview" data-for="driver">
+                    <div class="rp-icon">🚑</div>
+                    <div>
+                        <div class="rp-name">Ambulance Driver</div>
+                        <div class="rp-desc">Receive dispatch alerts, update your location and availability</div>
+                    </div>
+                </div>
+                <div class="role-preview" data-for="provider">
+                    <div class="rp-icon">🏥</div>
+                    <div>
+                        <div class="rp-name">Provider Admin</div>
+                        <div class="rp-desc">Manage your fleet, bookings, and analytics dashboard</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="left-bot">
+            <div class="trust-strip">
+                <div class="trust-icon">✅</div>
+                <div class="trust-text">
+                    <strong>Free to join. No credit card needed.</strong><br>
+                    Accounts are verified within 24 hours for drivers and providers.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Right Panel ──────────────────────────────────────── -->
+    <div class="panel-right">
+        <div class="form-shell">
+
+            <div class="form-eyebrow">Get started it's free</div>
+            <h2 class="form-title">Create Account</h2>
+            <p class="form-sub">
+                Already have one? <a href="../../auth/login.html">Sign in →</a>
+            </p>
+
+            <!-- Role tabs -->
+            <div class="role-tabs" role="tablist" aria-label="Account type">
+                <button class="role-tab active" data-role="client" role="tab" aria-selected="true" type="button">
+                    <span class="tab-icon">🧑‍⚕️</span>
+                    <span class="tab-label">Patient</span>
+                </button>
+                <button class="role-tab" data-role="driver" role="tab" aria-selected="false" type="button">
+                    <span class="tab-icon">🚑</span>
+                    <span class="tab-label">Driver</span>
+                </button>
+                <button class="role-tab" data-role="provider" role="tab" aria-selected="false" type="button">
+                    <span class="tab-icon">🏥</span>
+                    <span class="tab-label">Provider</span>
+                </button>
+            </div>
+
+            <!-- Role description -->
+            <div class="role-desc-strip" id="role-desc">
+                Request ambulances, track arrivals in real time, and choose your preferred hospital.
+            </div>
+
+            <!-- Error banner -->
+            <div class="register-error" id="register-error" role="alert"></div>
+
+            <!-- Name row -->
+            <div class="field-row">
+                <div class="field-group">
+                    <label class="field-label" for="first_name">First name</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">👤</span>
+                        <input id="first_name" name="first_name" type="text" class="field-input" placeholder="Enter your first name" autocomplete="given-name">
+                    </div>
+                    <div class="field-hint" id="first-hint"></div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label" for="last_name">Last name</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">👤</span>
+                        <input id="last_name" name="last_name" type="text" class="field-input" placeholder="Enter your last name" autocomplete="family-name">
+                    </div>
+                    <div class="field-hint" id="last-hint"></div>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="field-group">
+                <label class="field-label" for="email">Email address</label>
+                <div class="field-wrap">
+                    <span class="field-icon">✉️</span>
+                    <input id="email" name="email" type="email" class="field-input" placeholder="Enter your email address" autocomplete="email" inputmode="email">
+                </div>
+                <div class="field-hint" id="email-hint"></div>
+            </div>
+
+            <!-- Phone -->
+            <div class="field-group">
+                <label class="field-label" for="phone">Phone number</label>
+                <div class="field-wrap">
+                    <span class="field-icon">📞</span>
+                    <input id="phone" name="phone" type="tel" class="field-input" placeholder="+256 700 123 456" autocomplete="tel" inputmode="tel">
+                </div>
+                <div class="field-hint" id="phone-hint"></div>
+            </div>
+
+            <!-- Password -->
+            <div class="field-group">
+                <label class="field-label" for="password">Password</label>
+                <div class="field-wrap">
+                    <span class="field-icon">🔒</span>
+                    <input id="password" name="password" type="password" class="field-input" placeholder="Min. 8 characters" autocomplete="new-password">
+                    <button class="pw-toggle" id="pw-toggle" type="button" aria-label="Toggle password visibility" tabindex="-1">👁️</button>
+                </div>
+                <div class="pw-strength-wrap" id="pw-strength-wrap" style="display:none">
+                    <div class="pw-strength-bar">
+                        <div class="pw-strength-fill" id="pw-strength-fill"></div>
+                    </div>
+                    <div class="pw-strength-label" id="pw-strength-label"></div>
+                </div>
+                <div class="field-hint" id="password-hint"></div>
+            </div>
+
+            <!-- ── Extra fields: Driver ───────────────────────────── -->
+            <div class="extra-fields" id="driver-fields">
+                <div class="extra-divider"><span>Driver details</span></div>
+
+                <div class="field-group">
+                    <label class="field-label" for="license_number">Driver licence number</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">🪪</span>
+                        <input id="license_number" name="license_number" type="text" class="field-input" placeholder="e.g. DL-2024-001234">
+                    </div>
+                    <div class="field-hint" id="license-hint"></div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="nida_number">National ID (NIDA)</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">🆔</span>
+                        <input id="nida_number" name="nida_number" type="text" class="field-input" placeholder="e.g. CM9200716XHBML">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Extra fields: Provider ─────────────────────────── -->
+            <div class="extra-fields" id="provider-fields">
+                <div class="extra-divider"><span>Organisation details</span></div>
+
+                <div class="field-group">
+                    <label class="field-label" for="org_name">Organisation name</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">🏥</span>
+                        <input id="org_name" name="org_name" type="text" class="field-input" placeholder="e.g. AAR Healthcare Uganda">
+                    </div>
+                    <div class="field-hint" id="org-hint"></div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="district">District</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">📍</span>
+                        <input id="district" name="district" type="text" class="field-input" placeholder="e.g. Kampala">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terms -->
+            <div class="terms-row">
+                <input type="checkbox" id="terms" name="terms">
+                <label for="terms">
+                    I agree to MediLink's <a href="#" target="_blank">Terms of Service</a> and
+                    <a href="#" target="_blank">Privacy Policy</a>. I understand my data will be used to connect me with emergency services.
+                </label>
+            </div>
+            <div class="field-hint" id="terms-hint"></div>
+
+            <!-- Submit -->
+            <button class="btn-register" id="btn-register" type="button">
+                <div class="spinner"></div>
+                <span class="btn-label">Create Account →</span>
+            </button>
+
+            <!-- Sign in row -->
+            <div class="signin-row">
+                Already have an account? <a href="login.html">Sign in</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../../api/api.js"></script>
+    <script src="register.js"></script>
+
+</body>
+</html>

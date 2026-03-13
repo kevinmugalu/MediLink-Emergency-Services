@@ -1,3 +1,4 @@
+// src/pages/dashboard/dashboard.js
 // Highlight chart bar on hover
     document.querySelectorAll('.chart-bar').forEach(bar => {
         bar.addEventListener('mouseenter', function () {
