@@ -27,7 +27,7 @@
         </a>
         <ul>
             <li><a href="./src/pages/search/search.html">Find Ambulance</a></li>
-            <li><a href="./index.html#how">How It Works</a></li>
+            <li><a href="./index.html">How It Works</a></li>
             <li><a href="./src/pages/tracking/tracking.html" class="active">Track</a></li>
             <li><a href="./src/pages/dashboard/dashboard.html">Dashboard</a></li>
         </ul>
@@ -227,6 +227,13 @@
 
     <script src="index.js"></script>
     <script src="./src/api/api.js"></script>
+    <script>
+        const authBtn = document.getElementById('nav-auth-btn');
+        if (window.MediLink?.Auth?.isLoggedIn()) {
+            authBtn.textContent = 'My Account';
+            authBtn.href        = './src/pages/accounts/account.html';   
+        }
+    </script>
 
 </body>
 
