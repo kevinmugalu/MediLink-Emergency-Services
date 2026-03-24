@@ -1,4 +1,5 @@
-const API_BASE = 'http://127.0.0.1:8000/api/v1';
+// const API_BASE = 'http://127.0.0.1:8000/api/v1';
+const API_BASE = 'https://medilink-emergency-services-backend.onrender.com/api/v1';
 
 //Auth helpers for the MediLink API
 
